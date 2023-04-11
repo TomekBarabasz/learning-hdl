@@ -1,5 +1,5 @@
 
-
+`default_nettype none
 module GCD
 	#(parameter WIDTH=8)
 	(input clk,
