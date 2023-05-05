@@ -42,11 +42,11 @@ begin
     begin
         enc_a <= '1';
         enc_b <= '1';
-        rst <= '0';
-        wait for 10 ns;
         rst <= '1';
         wait for 10 ns;
         rst <= '0';
+        wait for 10 ns;
+        rst <= '1';
        
         for i in 0 to 25 loop
             wait for 10 ns;
@@ -73,3 +73,5 @@ begin
         wait;
     end process;
 end behavior;
+
+-- enc_a_out = '1' if count1 & count2 & count3 = 12d"0" else enc_a;

@@ -25,7 +25,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("name", type=str, help="test entity name")
     parser.add_argument("-files", "-f", type=Path, nargs='+', help="files to process")
-    parser.add_argument("-std",  type=str,  default='08', help="vhdl standard")
+    parser.add_argument("-std",  type=str,  default='02', help="vhdl standard")
     parser.add_argument("-test", "-t", action='store_true',  help="run tests")
     parser.add_argument("-wave", "-w", type=str, help="output wavefile name")
     Args = parser.parse_args(sys.argv[1:])

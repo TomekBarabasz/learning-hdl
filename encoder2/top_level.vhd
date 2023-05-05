@@ -14,7 +14,7 @@ entity top_level_device is
     );
 end top_level_device;
 
-architecture of top_level_device is
+architecture structural of top_level_device is
     component seven_seg is
         port(
               digit : in unsigned(3 downto 0);
@@ -54,8 +54,8 @@ architecture of top_level_device is
     end component;
     component clock_generator is
           clk : in std_logic;
-        clk_d : in std_logic;   -- 0.05ms -> 20Hz
-        clk_m : in std_logic;   -- 10us   -> 0.1MHz -> 100KHz
+        clk_d : out std_logic;   -- 0.05s -> 20Hz
+        clk_m : out std_logic;   -- 10us   -> 0.1MHz -> 100KHz
     end component;
 
     signal clk_d : in std_logic;   -- 0.05ms -> 20Hz
@@ -101,4 +101,4 @@ begin
     )
     display_seg(7) <= '0';
 
-end top_level_device;
+end structural;
