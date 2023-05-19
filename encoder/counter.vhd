@@ -3,16 +3,19 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
 entity encoder_counter is
+    generic(
+        N : integer := 4;
+    )
     port(
         rst : in std_logic;
         enc_a,enc_b : in std_logic;
-        count : out unsigned(3 downto 0);
+        count : out unsigned(N-1 downto 0);
         enc_a_out,enc_b_out : out std_logic
     );
 end encoder_counter;
 
 architecture behavior of encoder_counter is
-    signal internal_count : unsigned(3 downto 0);
+    signal internal_count : unsigned(N-1 downto 0);
 begin
     count <= internal_count;
    
