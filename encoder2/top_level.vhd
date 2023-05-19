@@ -49,13 +49,22 @@ architecture structural of top_level_device is
          digits_1 : in std_logic_vector(11 downto 0);
          digits_2 : in std_logic_vector(11 downto 0);
            digits : out std_logic_vector(11 downto 0);
-         display_led : out unsigned(7 downto 0)
+      display_led : out unsigned(7 downto 0)
         );
     end component;
     component clock_generator is
+        port(
           clk : in std_logic;
         clk_d : out std_logic;   -- 0.05s -> 20Hz
-        clk_m : out std_logic;   -- 10us   -> 0.1MHz -> 100KHz
+        clk_m : out std_logic   -- 10us   -> 0.1MHz -> 100KHz
+        );
+    end component;
+    component debouncer is
+        port(
+          clk : in std_logic;
+           we : in std_logic;
+           wy : out std_logic
+        );
     end component;
 
     signal clk_d : in std_logic;   -- 0.05ms -> 20Hz
@@ -64,22 +73,33 @@ architecture structural of top_level_device is
     signal measure_digits : std_logic_vector(11 downto 0);
     signal digits : std_logic_vector(11 downto 0);
     signal one_digit : std_logic_vector(3 downto 0);
-
+    signal enc_a_db  : std_logic;
+    signal enc_b_db  : std_logic;
 begin
     g : clock_generator port map(
         clk => clk,
         clk_d => clk_d,
         clk_m => clk_m
     );
+    dba : debouncer generic map (N=>10) port map (
+        clk => clk_m,
+        we => enc_a,
+        wy => enc_a_db
+    );
+    dbb : debouncer generic map (N=>10) port map (
+        clk => clk_m,
+        we => enc_b,
+        wy => enc_b_db
+    );
     c : counter port map(
         rst => rst,
-        enc_a => enc_a,
-        enc_b => enc_b,
+        enc_a => enc_a_db,
+        enc_b => enc_b_db,
         digits => counter_digits
     );
     im : impulse_measurement port map(
         clk => clk_m,
-        enc_a => enc_a,
+        enc_a => enc_a_db,
         digits => measure_digits
     );
     ms : mode_selector port map(
