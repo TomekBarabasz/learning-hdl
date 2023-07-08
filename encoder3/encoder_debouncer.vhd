@@ -10,42 +10,57 @@ entity encoder_debouncer is
 end encoder_debouncer;
 
 architecture behavior of encoder_debouncer is
+	type State_t is (S000,S001,S010,S011,S100,S101,S110,S111);
 begin
 
 process(enc_a,enc_b)
-    variable state : std_logic_vector(2 downto 0) := "000";
+	--variable state : std_logic_vector(2 downto 0) := "000";
+	variable  state : State_t := S000;
 begin
     case state is
-        when "000" =>
+        when S000 =>
             if enc_a='0' then
-                state := "001";
+                state := S001;
                 act_inc <= '1';
             elsif enc_b='0' then
-                state := "101";
+                state := S101;
                 act_dec <= '1';
             else
                 act_inc <= '0';
                 act_dec <= '0';
             end if;
         --- rotate right (increase)
-        when "001" =>
-            state := "010" when enc_b='0' else "001";
+        when S001 =>
+				if enc_b='0' then
+					state := S010;
+				end if;
             act_inc <= '0';
             act_dec <= '0';
-        when "010" =>
-            state := "011" when enc_a='1' else "010";
-        when "011" =>
-            state := "000" when enc_b='1' else "011";
-        --- roate left (decrease)
-        when "101" =>
-            state := "110" when enc_a='0' else "101";
-            act_inc <= '0';
-            act_dec <= '0';
-        when "110" =>
-            state := "111" when enc_b='1' else "110";
-        when "111" =>
-            state := "000" when enc_a='1' else "111";
-        when others => state := "000";
+        when S010 =>
+				if enc_a='1' then
+					state := S011;
+				end if;
+        when S011 =>
+				if enc_b='1' then
+					state := S000;
+				end if;
+        --- rotate left (decrease)
+        when S101 =>
+				if enc_a='0' then
+					state := S110;
+					act_inc <= '0';
+					act_dec <= '0';
+				end if;
+        when S110 =>
+				if enc_b='1' then
+					state := S111;
+				end if;
+        when S111 =>
+				if enc_a='1' then
+					state := S000;
+				end if;
+        when others => 
+				state := S000;
     end case;
 end process;
 
