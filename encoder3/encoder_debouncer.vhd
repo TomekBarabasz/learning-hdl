@@ -17,6 +17,7 @@ process(enc_a,enc_b)
 	--variable state : std_logic_vector(2 downto 0) := "000";
 	variable  state : State_t := S000;
 begin
+    -- s_state <= state;
     case state is
         when S000 =>
             if enc_a='0' then

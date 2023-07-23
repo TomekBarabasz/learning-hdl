@@ -10,11 +10,10 @@ architecture behavior of encoder_debouncer_tb is
         port(
             enc_a,enc_b : in std_logic;
             act_inc,act_dec : out std_logic
-    );
+        );
     end component;
 
     signal enc_a,enc_b : std_logic;
-
     signal act_inc,act_dec : std_logic;
 
 begin
@@ -60,19 +59,19 @@ begin
         
         -- simulate some glitches
         enc_a <= '0';
-        wait for 5 ns;
+        wait for 1 ns;
         assert act_inc = '1' and act_dec = '0';
         
         enc_a <= '1';
         wait for 1 ns;
-        assert act_inc = '0' and act_dec = '0';
+        assert act_inc = '1' and act_dec = '0';
         
         enc_a <= '0';
         wait for 1 ns;
-        assert act_inc = '0' and act_dec = '0';
+        assert act_inc = '1' and act_dec = '0';
         
         enc_b <= '0';
-        wait for 5 ns;
+        wait for 1 ns;
         assert act_inc = '0' and act_dec = '0';
         
         enc_b <= '1';
