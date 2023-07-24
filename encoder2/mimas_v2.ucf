@@ -95,8 +95,8 @@ CONFIG VCCAUX = "3.3" ;
 #                                              Push Buttons Switches                                                                              #
 ################################################################################################################################################### 
     NET rst                  LOC = M18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP; #SW1
-    NET mode_sel             LOC = L18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP; #SW2
-	 NET mode_sel CLOCK_DEDICATED_ROUTE = FALSE;
+    #NET mode_sel             LOC = L18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP; #SW2
+	 #NET mode_sel CLOCK_DEDICATED_ROUTE = FALSE;
     #NET SW_3                LOC = M16     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP; #SW3
     #NET SW_4                LOC = L17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP; #SW4
     #NET SW_5                LOC = K17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP; #SW5
@@ -105,14 +105,14 @@ CONFIG VCCAUX = "3.3" ;
 ###################################################################################################################################################
 #                                                    LEDs                                                                                         #
 ################################################################################################################################################### 
-    NET "display_led[0]"        LOC = P15     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D1
-    NET "display_led[1]"        LOC = P16     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D2
-    NET "display_led[2]"        LOC = N15     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D3
-    NET "display_led[3]"        LOC = N16     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D4
-    NET "display_led[4]"        LOC = U17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D5
-    NET "display_led[5]"        LOC = U18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D6
-    NET "display_led[6]"        LOC = T17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D7
-    NET "display_led[7]"        LOC = T18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D8
+    #NET "display_led[0]"        LOC = P15     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D1
+    #NET "display_led[1]"        LOC = P16     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D2
+    #NET "display_led[2]"        LOC = N15     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D3
+    #NET "display_led[3]"        LOC = N16     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D4
+    #NET "display_led[4]"        LOC = U17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D5
+    #NET "display_led[5]"        LOC = U18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D6
+    #NET "display_led[6]"        LOC = T17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D7
+    #NET "display_led[7]"        LOC = T18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #D8
 
 ###################################################################################################################################################
 #                                                   Micro SD Card                                                                                 #
@@ -171,7 +171,7 @@ CONFIG VCCAUX = "3.3" ;
 	 NET enc_a CLOCK_DEDICATED_ROUTE = FALSE;
     NET enc_b                   LOC = V7      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ; #Pin 2
 	 NET enc_b CLOCK_DEDICATED_ROUTE = FALSE;
-    #NET "IO_P6[5]"                   LOC = T4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ; #Pin 3
+    NET ena_out 					  LOC = T4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ; #Pin 3
     #NET "IO_P6[4]"                   LOC = V4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ; #Pin 4
     #NET "IO_P6[3]"                   LOC = U5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ; #Pin 5
     #NET "IO_P6[2]"                   LOC = V5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ; #Pin 6

@@ -1,7 +1,0 @@
-v 3
-file . "encoder_debouncer.vhd" "20230705163614.000" "20230705185414.537":
-  entity encoder_debouncer at 1( 0) + 0 on 23;
-  architecture behavior of encoder_debouncer at 12( 218) + 0 on 24;
-file . "encoder_debouncer_tb.vhd" "20230705165412.000" "20230705185414.546":
-  entity encoder_debouncer_tb at 1( 0) + 0 on 25;
-  architecture behavior of encoder_debouncer_tb at 8( 135) + 0 on 26;

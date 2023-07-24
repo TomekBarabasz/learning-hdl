@@ -2,55 +2,51 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity counter is
+entity composite_counter is
     port(
-            rst : in std_logic;
-    enc_a,enc_b : in std_logic;
-         digits : out std_logic_vector(11 downto 0);
-    );
-end counter;
+			rst : in std_logic;
+			clk : in std_logic;
+			dir : in std_logic;
+         digits : out std_logic_vector(11 downto 0)
+        );
+end composite_counter;
 
-architecture structural of counter is
+architecture structural of composite_counter is
     component single_digit_bcd_counter is
         port(
-              rst : in std_logic;
-        enc_a,enc_b : in std_logic;
-           digit : out std_logic_vector(3 downto 0);
-           enc_a_out,enc_b_out : out std_logic
+				  rst : in std_logic;
+			 clk,dir : in std_logic;
+			 counter : out unsigned(3 downto 0);
+				carry : out std_logic
         );
     end component;
-    signal enc_a_out_1,enc_b_out_1 : std_logic;
-    signal enc_a_out_2,enc_b_out_2 : std_logic;
-    signal enc_a_out_3,enc_b_out_3 : std_logic;
-    -- signal digit1 : std_logic_vector(3 downto 0);
-    -- signal digit2 : std_logic_vector(3 downto 0);
-    -- signal digit3 : std_logic_vector(3 downto 0);
+    signal carry1to2,carry2to3 : std_logic;
+    signal digit1 : unsigned(3 downto 0);
+	 signal digit2 : unsigned(3 downto 0);
+    signal digit3 : unsigned(3 downto 0);
 
 begin
-    -- digits <= digit3 & digit2 & digit1;
+	 digits <= std_logic_vector(digit3) & std_logic_vector(digit2) & std_logic_vector(digit1);
+	 
     c1 : single_digit_bcd_counter port map(
         rst => rst,
-        enc_a => enc_a,
-        enc_b => enc_b,
-        digit => digits(3 downto 0),
-        enc_a_out => enc_a_out_1,
-        enc_b_out => enc_b_out_1
+        clk => clk,
+        dir => dir,
+        counter => digit1,
+        carry => carry1to2
     );
     c2 : single_digit_bcd_counter port map(
         rst => rst,
-        enc_a => enc_a_out_1,
-        enc_b => enc_b_out_1,
-        digit => digits(7 downto 4),
-        enc_a_out => enc_a_out_2,
-        enc_b_out => enc_b_out_2
+        clk => carry1to2,
+        dir => dir,
+        counter => digit2,
+        carry => carry2to3
     );
     c3 : single_digit_bcd_counter port map(
         rst => rst,
-        enc_a => enc_a_out_2,
-        enc_b => enc_b_out_2,
-        digit => digits(11 downto 8),
-        enc_a_out => enc_a_out_3,
-        enc_b_out => enc_b_out_3
+        clk => carry2to3,
+        dir => dir,
+        counter => digit3,
+        carry => open
     );
 end structural;
-
