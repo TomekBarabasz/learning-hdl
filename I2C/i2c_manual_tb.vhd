@@ -42,8 +42,8 @@ architecture behavior of i2c_tb is
 begin
     i2c : i2c_master 
         generic map(
-            sys_clk => {{sys_clk}}, 
-            bus_clk => {{bus_clk}}
+            sys_clk => 4, 
+            bus_clk => 1
         ) 
         port map(
             clk => clk, 

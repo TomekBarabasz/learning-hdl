@@ -42,8 +42,8 @@ architecture behavior of {{testbench_name}} is
 begin
     i2c : i2c_master 
         generic map(
-            sys_clk => 4, 
-            bus_clk => 1
+            sys_clk => {{sys_clk}}, 
+            bus_clk => {{bus_clk}}
         ) 
         port map(
             clk => clk, 
