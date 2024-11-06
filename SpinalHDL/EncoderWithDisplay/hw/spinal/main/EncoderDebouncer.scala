@@ -1,4 +1,4 @@
-package learning_spinal
+package EncoderWithDisplay
 
 import spinal.core._
 import spinal.lib.fsm._
