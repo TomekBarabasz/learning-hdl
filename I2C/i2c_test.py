@@ -125,6 +125,11 @@ def make_test_sclk_stretch():
     tb.assrt(scl_clk=0,data_clk=0)
     return tb
 
+
+# jak uruchamiać:
+# -t musi być na końcu!
+#  python3 i2c_test.py -- i2c.vhd
+#  python3 i2c_test.py -- i2c.vhd -t i2c_tb_template.vhd
 if __name__ == '__main__':
     args = []
     for i,a in enumerate(sys.argv):
