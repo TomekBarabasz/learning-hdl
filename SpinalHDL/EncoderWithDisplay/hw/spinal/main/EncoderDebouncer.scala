@@ -19,10 +19,11 @@ case class EncoderDebouncer(width : Int) extends Component {
 
         ha := io.enc_a ## (ha >> 1)
         hb := io.enc_b ## (hb >> 1)
-        
+        io.ena := False
+        io.rdir := False
+
         val sIdle : State = new State with EntryPoint {
             onEntry {
-                io.ena := False
                 state := U(0)
             }
             whenIsActive {
@@ -31,12 +32,14 @@ case class EncoderDebouncer(width : Int) extends Component {
                     goto(sStarted)
                 } elsewhen (!hb.orR) {
                     io.rdir := True
+                    // this will generate short 1 cycle rdir ='H' impulse
                     goto(sStarted)
                 }
             }
         }
         val sStarted : State = new State {
             onEntry {
+                // this will generate short 1 cycle ena = 'H' impulse
                 io.ena := True
                 state := U(1)
             }
@@ -45,7 +48,6 @@ case class EncoderDebouncer(width : Int) extends Component {
                     goto(sWait4End)
                 }
             }
-            onExit{io.ena := False}
         }
         val sWait4End : State = new State {
             onEntry(state := U(2))
