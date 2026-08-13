@@ -1,2 +1,8 @@
 github
 .spinal-sbt
+SpinalHDL/EncoderWithDisplay/SimWorkspace
+SpinalHDL/EncoderWithDisplay/target
+SpinalHDL/EncoderWithDisplay/project
+SpinalHDL/I2CExample/SimWorkspace
+SpinalHDL/I2CExample/target/*
+SpinalHDL/I2CExample/project
