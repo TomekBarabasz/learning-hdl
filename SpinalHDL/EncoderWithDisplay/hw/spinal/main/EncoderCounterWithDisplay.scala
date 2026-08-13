@@ -45,3 +45,7 @@ case class EncoderCounterWithDisplay() extends Component {
 object EncoderCounterWithDisplayVhdl extends App {
   Config.spinal.generateVhdl(EncoderCounterWithDisplay())
 }
+
+object EncoderCounterWithDisplayVerilog extends App {
+  Config.spinal.generateVerilog(EncoderCounterWithDisplay())
+}

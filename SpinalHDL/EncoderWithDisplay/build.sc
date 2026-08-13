@@ -1,6 +1,6 @@
 import mill._, scalalib._
 
-val spinalVersion = "1.10.2a"
+val spinalVersion = "1.14.2"
 
 object EncoderWithDisplay extends SbtModule {
   def scalaVersion = "2.13.14"
