@@ -4,12 +4,11 @@ import spinal.core._
 import spinal.core.sim._
 import org.scalatest.funsuite.AnyFunSuite
 
-class I2cPhyTest extends AnyFunSuite {
-  lazy val dut: SimCompiled[I2cPhy] = Config.sim
+class I2cPhySuite(label: String, 
+                 build: I2cGenerics => I2cPhyBase) extends AnyFunSuite {
+  lazy val dut: SimCompiled[I2cPhyBase] = Config.sim
     .withFstWave
-    .compile {
-      new I2cPhy(I2cGenerics(clkFrequency = 100 MHz))
-    }
+    .compile { build(I2cGenerics(clkFrequency = 100 MHz)) }
 
   test("dummy") {
     dut.doSim("dummy") { dut =>
@@ -19,3 +18,6 @@ class I2cPhyTest extends AnyFunSuite {
     }
   }
 }
+
+class I2cPhyFsmTest   extends I2cPhySuite("fsm",   g => new I2cPhyFsm(g))
+class I2cPhyTableTest extends I2cPhySuite("table", g => new I2cPhyTable(g))

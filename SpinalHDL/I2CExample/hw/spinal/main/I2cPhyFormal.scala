@@ -5,21 +5,28 @@ import spinal.core.formal._
 
 // You need SymbiYosys to be installed.
 // See https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Formal%20verification/index.html#installing-requirements
-object I2cPhyFormal extends App {
-  FormalConfig
-    .withBMC(10)
-    .doVerify(new Component {
-      val dut = FormalDut(I2cPhy(I2cGenerics(clkFrequency = 100 MHz)))
+abstract class I2cPhyFormalBase(label : String,
+                                build : I2cGenerics => I2cPhyBase) {
 
-      // Ensure the formal test start with a reset
-      assumeInitial(clockDomain.isResetActive)
+  def main(args : Array[String]) : Unit = {
+    FormalConfig
+      .withBMC(10)
+      .doVerify(new Component {
+        setDefinitionName(s"I2cPhyFormal_$label")
 
-      // Provide some stimulus
-      anyseq(dut.io.cmd.valid)
-      anyseq(dut.io.cmd.payload.mode)
-      anyseq(dut.io.cmd.payload.data)
+        val dut = FormalDut(build(I2cGenerics(clkFrequency = 100 MHz)))
 
-      // Check the state initial value and increment
-      assert(dut.io.rsp.data === past(dut.io.rsp.data).init(False))
-    })
+        // TODO: to chyba do poprawy albo wyjebania
+        assumeInitial(clockDomain.isResetActive)
+
+        anyseq(dut.io.cmd.valid)
+        anyseq(dut.io.cmd.payload.mode)
+        anyseq(dut.io.cmd.payload.data)
+
+        assert(dut.io.rsp.data === past(dut.io.rsp.data).init(False))
+      })
+  }
 }
+
+object I2cPhyFsmFormal   extends I2cPhyFormalBase("fsm",   g => I2cPhyFsm(g))
+object I2cPhyTableFormal extends I2cPhyFormalBase("table", g => I2cPhyTable(g))
